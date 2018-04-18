@@ -1,11 +1,11 @@
 {
-  "name": "abecms",
+  "name": "abeadfab",
   "version": "2.16.15",
   "description": "Abe: The lightning fast CMS",
   "main": "src/server/app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/abecms/abecms.git"
+    "url": "git://github.com/ADFABNorthAmericaInc/abecms.git"
   },
   "scripts": {
     "lint": "eslint src --fix",
