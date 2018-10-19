@@ -121,7 +121,7 @@
     "nightwatch": "^0.9.11",
     "node-sass": "^4.3.0",
     "nodemon": "^1.8.1",
-    "parallelshell": "^2.0.0",
+    "parallelshell": "3.0.2",
     "selenium-download": "^2.0.7",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
