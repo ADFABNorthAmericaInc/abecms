@@ -45,6 +45,7 @@ export default class EditorBlock {
 
     this._dragBlock = document.querySelectorAll('.list-group[data-block]')
     Array.prototype.forEach.call(this._dragBlock, (drag) => {
+      var canceled = false
       var drake = dragula([drag],
         {
           moves: function (el, source, handle, sibling) {
@@ -56,7 +57,11 @@ export default class EditorBlock {
       })
       drake.on('dragend', (el) => {
         el.classList.remove('moving')
-        this._changeIndexOfBlocksFromElement(el)
+        if(!canceled) this._changeIndexOfBlocksFromElement(el)
+        canceled = false
+      })
+      drake.on('cancel', (e) => {
+        canceled = true
       })
     })
 
