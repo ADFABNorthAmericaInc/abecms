@@ -111,7 +111,9 @@ export default class EditorSave {
           }
           if(emptyObject === 0) {
             delete this._json.data[obj][index]
-            if(typeof this._json.data[obj][0] === 'undefined' || this._json.data[obj][0] === null) delete this._json.data[obj];
+            if((typeof this._json.data[obj][0] === 'undefined' || this._json.data[obj][0] === null) && JSON.stringify(this._json.data[obj]) === "[null]") {
+              delete this._json.data[obj]
+            }
           }
         } else {
           if (input.getAttribute('data-autocomplete') === 'true' || input.getAttribute('data-multiple') === 'multiple') {
