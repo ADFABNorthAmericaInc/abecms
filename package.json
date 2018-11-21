@@ -1,6 +1,6 @@
 {
   "name": "abeadfab",
-  "version": "2.16.15",
+  "version": "2.16.16",
   "description": "Abe: The lightning fast CMS",
   "main": "src/server/app.js",
   "repository": {
