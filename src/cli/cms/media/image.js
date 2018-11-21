@@ -25,7 +25,7 @@ export function cropAndSaveFile(imageSize, file, newFile) {
 }
 
 export function smartCropAndSaveFile(imageSize, file, newFile) {
-  var cmd = `node ${process.cwd()}/node_modules/smartcrop-cli/smartcrop-cli.js --width ${parseInt(
+  var cmd = `node ${config.root}/node_modules/smartcrop-cli/smartcrop-cli.js --width ${parseInt(
     imageSize[0]
   )} --height ${parseInt(imageSize[1])} ${file} ${newFile}`
   var p = execPromise.exec(cmd)
