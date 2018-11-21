@@ -1,6 +1,6 @@
 {
   "name": "abeadfab",
-  "version": "3.7.14",
+  "version": "3.7.15",
   "description": "Abe: The lightning fast CMS",
   "main": "src/server/app.js",
   "bugs": "https://github.com/abecms/abecms/issues",
