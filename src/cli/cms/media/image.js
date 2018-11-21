@@ -25,14 +25,14 @@ export function cropAndSaveFile(imageSize, file, newFile) {
 }
 
 export function smartCropAndSaveFile(imageSize, file, newFile) {
-  var cmd = `node node_modules/smartcrop-cli/smartcrop-cli.js --width ${parseInt(
+  var cmd = `node ${process.cwd()}/node_modules/smartcrop-cli/smartcrop-cli.js --width ${parseInt(
     imageSize[0]
   )} --height ${parseInt(imageSize[1])} ${file} ${newFile}`
   var p = execPromise.exec(cmd)
   return p
 }
 
-export function cropAndSaveFiles(images, file, resp) {
+export function cropAndSaveFiles(images, file, resp, smart) {
   var length = images.length
   var cropedImage = 0
   resp.thumbs = []
@@ -74,6 +74,16 @@ export function cropAndSaveFiles(images, file, resp) {
             parseInt(ratio - 1) <= parseInt(originalHeight) &&
             parseInt(ratio + 1) >= parseInt(originalHeight)
           ) {
+            originalImage
+              .resize(
+                parseInt(image.split('x')[0]),
+                parseInt(image.split('x')[1])
+              )
+              .write(newFile)
+            if (++cropedImage === length) {
+              resolve(resp)
+            }
+          } else if (smart === 'false') {
             originalImage
               .resize(
                 parseInt(image.split('x')[0]),
@@ -194,11 +204,12 @@ export function saveFile(req) {
             req.query.input &&
             req.query.input.indexOf('data-size') > -1
           ) {
+            var smart = cmsData.regex.getAttr(req.query.input, 'data-smart')
             var thumbsSizes = cmsData.regex
               .getAttr(req.query.input, 'data-size')
               .replace(' ', '')
               .split(',')
-            cropAndSaveFiles(thumbsSizes, filePath, resp).then(function(
+            cropAndSaveFiles(thumbsSizes, filePath, resp, smart).then(function(
               resp
             ) {
               if (/^win/.test(process.platform)) {

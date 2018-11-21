@@ -20,6 +20,7 @@ export function getAttributes(params) {
   if (params.placeholder != null)
     attributes += ` placeholder="${params.placeholder}"`
   if (params.thumbs != null) attributes += ` data-size="${params.thumbs}"`
+  if (params.smart != null) attributes += ` data-smart="${params.smart}"`
   if (params.toolbar != null) attributes += ` data-toolbar="${params.toolbar}"`
   if (params.multiple != null)
     attributes += ` data-multiple="${params.multiple}"`
