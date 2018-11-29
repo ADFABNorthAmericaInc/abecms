@@ -27,6 +27,15 @@ export default class RichTexarea {
     }
   }
 
+  destroy() {
+    Array.prototype.forEach.call(this.btns, (btn) => {
+      btn.removeEventListener('click', this._action)
+    })
+    console.log(this.wrapper)
+    this.wrapper.querySelector('[contenteditable]').remove()
+    this.textEditor = null
+  }
+
   setHTML() {
     this.textarea.innerHTML = this.textEditor.getHTML()
     var evt = document.createEvent('KeyboardEvent')

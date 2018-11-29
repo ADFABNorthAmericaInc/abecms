@@ -14,6 +14,7 @@ import on from 'on'
 export default class EditorInputs {
   constructor() {
     this._json = Json.instance
+    this.richs = []
     var colorWysiwyg = document.querySelector('.wysiwyg-popup.color')
     if (colorWysiwyg != null) {
       this.color = new Color(colorWysiwyg)
@@ -26,9 +27,9 @@ export default class EditorInputs {
     if (imgWysiwyg != null) {
       this.image = new image(imgWysiwyg)
     }
-    var imgWysiwyg = document.querySelector('.wysiwyg-popup.smiley')
-    if (imgWysiwyg != null) {
-      this.smiley = new smiley(imgWysiwyg)
+    var smileyWysiwyg = document.querySelector('.wysiwyg-popup.smiley')
+    if (smileyWysiwyg != null) {
+      this.smiley = new smiley(smileyWysiwyg)
     }
     this.onBlur = on(this)
     this.onReload = on(this)
@@ -37,7 +38,21 @@ export default class EditorInputs {
     this._inputElements()
   }
 
+  createRichText() {
+    var richs = document.querySelectorAll('.rich')
+    Array.prototype.forEach.call(this.richs, (rich) => rich.destroy())
+    this.richs = []
+    if(typeof richs !== 'undefined' && richs !== null){
+      Array.prototype.forEach.call(richs, (rich) => {
+        let contenteditable = rich.querySelector('[contenteditable]')
+        if(contenteditable) contenteditable.remove()
+        this.richs.push(new RichText(rich, this.color, this.link, this.image, this.smiley))
+      })
+    }
+  }
+
   rebind() {
+    this.createRichText()
     this._reloads = [].slice.call(document.querySelectorAll('[reload=true]:not([data-multiple="multiple"])'))
     this._inputs = [].slice.call(document.querySelectorAll('.form-abe'))
     this._inputs = this._inputs.concat([].slice.call(document.querySelectorAll('textarea.form-abe')))
@@ -69,13 +84,6 @@ export default class EditorInputs {
     this._handleInputBlur = this._inputBlur.bind(this)
     this._handleInputKeyup = this._inputKeyup.bind(this)
     this._handleChangeSelect = this._changeSelect.bind(this)
-
-    var richs = document.querySelectorAll('.rich')
-    if(typeof richs !== 'undefined' && richs !== null){
-      Array.prototype.forEach.call(richs, (rich) => {
-        new RichText(rich, this.color, this.link, this.image, this.smiley)
-      })
-    }
 
     this.rebind()
   }
@@ -142,6 +150,7 @@ export default class EditorInputs {
    * @return {[type]}   [description]
    */
   _inputFocus(e) {
+    console.log('_inputFocus')
     EditorUtils.checkAttribute()
     EditorUtils.scrollToInputElement(e.target)
     
