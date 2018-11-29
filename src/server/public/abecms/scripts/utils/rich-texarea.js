@@ -31,7 +31,6 @@ export default class RichTexarea {
     Array.prototype.forEach.call(this.btns, (btn) => {
       btn.removeEventListener('click', this._action)
     })
-    console.log(this.wrapper)
     this.wrapper.querySelector('[contenteditable]').remove()
     this.textEditor = null
   }
