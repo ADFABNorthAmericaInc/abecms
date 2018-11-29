@@ -21,6 +21,7 @@ function publishNext(files, tt, cb, i = 0) {
     }
 
     var jsonObject = fse.readJsonSync(pub[processConfig.ABE_STATUS].path)
+    abeExtend.hooks.instance.trigger('beforePublish', jsonObject, pub[processConfig.ABE_STATUS].path)
     i++
     var p = new Promise((resolve) => {
       if(typeof templatesTexts[jsonObject.abe_meta.template] === 'undefined' || templatesTexts[jsonObject.abe_meta.template] === null) {
