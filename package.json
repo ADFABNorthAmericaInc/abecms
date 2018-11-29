@@ -8,6 +8,9 @@
     "type": "git",
     "url": "git://github.com/ADFABNorthAmericaInc/abecms.git"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "lint": "eslint src --fix",
     "test": "mocha --recursive --compilers js:babel-register --require babel-polyfill tests/unit",

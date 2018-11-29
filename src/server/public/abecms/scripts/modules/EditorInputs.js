@@ -149,6 +149,7 @@ export default class EditorInputs {
    */
   _inputKeyup(e) {
     var nodes = EditorUtils.getNode(EditorUtils.getAttr(e.target))
+    e.target.setAttribute('value', e.target.value)
     Array.prototype.forEach.call(nodes, node => {
       //this._hideIfEmpty(node, e.target.value)
       EditorUtils.formToHtml(node, e.target)
